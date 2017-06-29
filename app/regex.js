@@ -27,6 +27,6 @@ exports.regexAnswers = {
   },
 
   isUSD: function (str) {
-
+    return /^\$(\d{1,3})(,\d{3}){0,}(\.\d{2})?$/.test(str);
   }
 };
