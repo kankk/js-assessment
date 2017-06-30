@@ -56,7 +56,29 @@ exports.functionsAnswers = {
     }
   },
 
+  aCurryIt: function (fn) {
+    function applyArguments(_fn, args) {
+      return _fn.apply(null, args);
+    }
+
+    function getArgumentAccumulator(accumulatedArguments, expectedArgumentsCount) {
+      return function (currentArgument) {
+        accumulatedArguments.push(currentArgument);
+
+        var allArgumentsProvided = accumulatedArguments.length === expectedArgumentsCount;
+
+        if (allArgumentsProvided) {
+          return applyArguments(fn, accumulatedArguments);
+        }
+
+        return getArgumentAccumulator(accumulatedArguments, expectedArgumentsCount);
+      };
+    }
+
+    return getArgumentAccumulator([], fn.length);
+  },
+
   curryIt: function (fn) {
-    
+
   }
 };
